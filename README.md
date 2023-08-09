@@ -2,13 +2,13 @@
 some nice tools
 
 
-## areYouDeadAlready.py + saveTheFilesLOL.py + nuke.py + testDeadSettings.py
+## areYouDeadAlready.py + keepItAlive.py + nuke.py + testDeadSettings.py
 
 These are two scripts that go together.
 
 You can use this to secure private information. Everything stays safe, until you haven't confirmed that you are alive in X days. (highly customisable) If you haven't confirmed it for the set amount of days, it will delete the by you registered folders and files.
 
-- saveTheFilesLOL.py is the file you can manually confirm that you are alive.
+- keepItAlive.py is the file you can manually confirm that you are alive.
 
 - areYouDeadAlready.py is the brains behind it, you should run this at startup.
 
@@ -22,7 +22,7 @@ It's customisable with the settings.json that it will autocreate on startup of e
 {
     "DaysBetween": 14,
     "SleepMinutesWhileLoop": 60,
-    "LastTimeSaved": 0,
+    "LastTimeSaved": 1691622438,
     "SaveOnStartup": true,
     "DeleteThesePaths": [
         "deletableExample/",
@@ -61,7 +61,8 @@ It's customisable with the settings.json that it will autocreate on startup of e
         "RequirePassword": true,
         "Password": "404NF",
         "ActivateOtherJSON": ""
-    }
+    },
+    "SaveAnotherJSON": ""
 }
 ```
 I will explain how everything works.
@@ -88,3 +89,4 @@ I will explain how everything works.
     - `RequirePassword` is used to ask for your password before launching a nuke.
     - `Password` is the password you need to enter if you have `RequirePassword` enabled. It's stored as an exact string, so someone who knows to find this json will still be able to pass
     - `ActivateOtherJSON` is used for storing your nuke button in another location then the other programs. keep this an empty string if they all use the same json. enter the path to the json to nuke that other json. it will take all the settings from that json mentioned, so a perfect way to make the `Password` a bit harder to find.
+- `SaveAnotherJSON` is used just like `ActivateOtherJSON` to direct at another settings.json, to save it there. for if you want to keep your save button at another location then the rest. keep this an empty string if they all use the same json. enter the path to the json to nuke that other json

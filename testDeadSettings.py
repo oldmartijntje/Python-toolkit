@@ -54,7 +54,6 @@ def get_value_from_json(key, filename = 'settings.json'):
         return defaultJson[key]
 
 def saveMeNow():
-    file_data = read_json_file(filename)
     logger.info("is able to save")
 
 
@@ -106,16 +105,18 @@ defaultJson = {
         "UseThisSetting": False,
         "CompareTo": "DEFAULT"
     },
-    "SpecificLogging": ["create","errors", "settings", "saves", "deletions", "nuke"],
+    "SpecificLogging": ["create","errors", "settingsChange", "saves", "deletions", "nuke"],
     "Nuke": {
         "RequireConfirm": True,
         "RequirePassword": True,
         "Password": "404NF",
         "ActivateOtherJSON": ""
-    }
+    }, 
+    "SaveAnotherJSON": ""
 }
 
-filename = input("give me the settings.json filepath (press enter if it's default):")
+originalFilename = input("give me the settings.json filepath (press enter if it's default):")
+filename = originalFilename
 if filename == "":
     filename = 'settings.json'
 
@@ -201,3 +202,27 @@ if get_value_from_json("AutoCreateOnDeletion"):
     create_paths(get_value_from_json("AutoCreateFiles"), True)
 else:
     logger.info("Would not create anything after deletion")
+
+logger.warning(f"The following tests are what would happen if you would run keepItAlive.py with this.")
+
+filename = originalFilename
+
+file_data = read_json_file(filename)
+if file_data:
+    pass
+else:
+    write_json_file(filename, defaultJson)
+    file_data = defaultJson
+
+if get_value_from_json("SaveAnotherJSON") != "":
+    logger.info(f"there is another settings file it will save")
+    filename = get_value_from_json("SaveAnotherJSON")
+    file_data = read_json_file(filename)
+    if file_data:
+        pass
+    else:
+        write_json_file(filename, defaultJson)
+        logger.info(f"it didn't exist yet, but now it is created")
+        file_data = defaultJson
+    
+saveMeNow()

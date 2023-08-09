@@ -116,7 +116,6 @@ def resetSettings():
     if "settingsChange" in get_value_from_json("SpecificLogging"):
         logIfAllowed(f"Reset settings.", 'info')
 
-
 defaultJson = {
     "DaysBetween": 14,
     "SleepMinutesWhileLoop": 60,
@@ -135,13 +134,14 @@ defaultJson = {
         "UseThisSetting": False,
         "CompareTo": "DEFAULT"
     },
-    "SpecificLogging": ["create","errors", "settings", "saves", "deletions", "nuke"],
+    "SpecificLogging": ["create","errors", "settingsChange", "saves", "deletions", "nuke"],
     "Nuke": {
         "RequireConfirm": True,
         "RequirePassword": True,
         "Password": "404NF",
         "ActivateOtherJSON": ""
-    }
+    }, 
+    "SaveAnotherJSON": ""
 }
 
 filename = 'settings.json'
