@@ -51,7 +51,7 @@ def delete_paths(paths):
         else:
             logIfAllowed(f"Path not found: {path}", 'error')
 
-def get_value_from_json(key):
+def get_value_from_json(key, filename = 'settings.json'):
     file_data = read_json_file(filename)
     if key in file_data:
         return file_data[key]
@@ -81,15 +81,29 @@ def logIfAllowed(message, mode):
 def create_paths(paths):
     for path in paths:
         if path.endswith('/'):
-            # If the path ends with '/', create a directory
+            # If the path ends with '/', create a directory if it doesn't exist
             directory_path = path.rstrip('/')
-            os.makedirs(directory_path, exist_ok=True)
-            logIfAllowed(f"Created directory: {directory_path}", 'info')
+            if not os.path.exists(directory_path):
+                os.makedirs(directory_path)
+                logIfAllowed(f"Created directory: {directory_path}", 'info')
         else:
-            # Otherwise, create a file
-            with open(path, 'w') as file:
-                file.write("")
-            logIfAllowed(f"Created file: {path}", 'info')
+            # Otherwise, create a file if it doesn't exist
+            if not os.path.exists(path):
+                with open(path, 'w') as file:
+                    file.write("")
+                logIfAllowed(f"Created file: {path}", 'info')
+
+def resetSettings():
+    file_data = read_json_file(filename)
+    for key in file_data:
+        if key in get_value_from_json('ResetSettingsOnDeletion')['ResetTheFollowingSettingsOnDeletion']:
+            if get_value_from_json('ResetSettingsOnDeletion')['CompareTo'] == "DEFAULT":
+                file_data[key] = defaultJson[key]
+            else:
+                file_data[key] = get_value_from_json(key, get_value_from_json('ResetSettingsOnDeletion')['CompareTo'])
+    write_json_file(filename, file_data)
+    logIfAllowed(f"Reset settings.", 'info')
+
 
 defaultJson = {
     "DaysBetween": 14,
@@ -103,7 +117,12 @@ defaultJson = {
     "StopOnDeletion": False,
     "SaveOnDeletion": True,
     "AutoCreateOnDeletion": True,
-    "LoopAfterStartup": True
+    "LoopAfterStartup": True,
+    "ResetSettingsOnDeletion": {
+        "ResetTheFollowingSettingsOnDeletion": ["AutoCreateFolders", "AutoCreateFiles", "DeleteThesePaths"],
+        "UseThisSetting": False,
+        "CompareTo": "DEFAULT"
+    }
 }
 
 filename = 'settings.json'
@@ -146,6 +165,8 @@ while loop:
         delete_paths(get_value_from_json('DeleteThesePaths'))
         if get_value_from_json("SaveOnDeletion"):
             saveMeNow()
+        if get_value_from_json("ResetSettingsOnDeletion")["UseThisSetting"]:
+            resetSettings()
         if get_value_from_json("AutoCreateOnDeletion"):
             create_paths(get_value_from_json("AutoCreateFolders"))
             create_paths(get_value_from_json("AutoCreateFiles"))

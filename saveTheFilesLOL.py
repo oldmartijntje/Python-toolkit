@@ -66,9 +66,21 @@ defaultJson = {
     "StopOnDeletion": False,
     "SaveOnDeletion": True,
     "AutoCreateOnDeletion": True,
-    "LoopAfterStartup": True
+    "LoopAfterStartup": True,
+    "ResetSettingsOnDeletion": {
+        "ResetTheFollowingSettingsOnDeletion": ["AutoCreateFolders", "AutoCreateFiles", "DeleteThesePaths"],
+        "UseThisSetting": False,
+        "CompareTo": "DEFAULT"
+    }
 }
 
 filename = 'settings.json'
+
+file_data = read_json_file(filename)
+if file_data:
+    pass
+else:
+    write_json_file(filename, defaultJson)
+    file_data = defaultJson
 
 saveMeNow()
