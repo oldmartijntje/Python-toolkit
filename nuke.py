@@ -113,7 +113,7 @@ def resetSettings():
                 if "errors" in get_value_from_json("SpecificLogging"):
                     logIfAllowed(f"{e}", 'error')
     write_json_file(filename, file_data)
-    if "settingsChange" in get_value_from_json("SpecificLogging"):
+    if "settings" in get_value_from_json("SpecificLogging"):
         logIfAllowed(f"Reset settings.", 'info')
 
 
@@ -153,31 +153,8 @@ else:
     write_json_file(filename, defaultJson)
     file_data = defaultJson
 
-if get_value_from_json('SaveOnStartup'):
-    if has_passed_x_days(int_to_datetime(get_value_from_json('LastTimeSaved')), get_value_from_json('DaysBetween')):
-        delete_paths(get_value_from_json('DeleteThesePaths'))
-        if get_value_from_json("SaveOnDeletion"):
-            saveMeNow()
-        try:
-            if get_value_from_json("ResetSettingsOnDeletion")["UseThisSetting"]:
-                resetSettings()
-        except Exception as e:
-            if "errors" in get_value_from_json("SpecificLogging"):
-                logIfAllowed(f"{e}", 'error')
-        if get_value_from_json("AutoCreateOnDeletion"):
-            create_paths(get_value_from_json("AutoCreateFolders"))
-            create_paths(get_value_from_json("AutoCreateFiles"))
-        if get_value_from_json("StopOnDeletion"):
-            exit()
-    saveMeNow()
-
-create_paths(get_value_from_json("AutoCreateFolders"))
-create_paths(get_value_from_json("AutoCreateFiles"))
-
-loop = True
-
-while loop:
-    # Reading from the JSON file
+if get_value_from_json("Nuke")["ActivateOtherJSON"] != "":
+    filename = get_value_from_json("Nuke")["ActivateOtherJSON"]
     file_data = read_json_file(filename)
     if file_data:
         pass
@@ -185,25 +162,57 @@ while loop:
         write_json_file(filename, defaultJson)
         file_data = defaultJson
 
-    if get_value_from_json("LoopAfterStartup") == False:
-        loop = False
+if "nuke" in get_value_from_json("SpecificLogging"):
+    logIfAllowed(f"Nuke initialized", 'warning')
 
-    if has_passed_x_days(int_to_datetime(get_value_from_json('LastTimeSaved')), get_value_from_json('DaysBetween')):
-        delete_paths(get_value_from_json('DeleteThesePaths'))
-        if get_value_from_json("SaveOnDeletion"):
-            saveMeNow()
-        try:
-            if get_value_from_json("ResetSettingsOnDeletion")["UseThisSetting"]:
-                resetSettings()
-        except Exception as e:
-            if "errors" in get_value_from_json("SpecificLogging"):
-                logIfAllowed(f"{e}", 'error')
-        if get_value_from_json("AutoCreateOnDeletion"):
-            create_paths(get_value_from_json("AutoCreateFolders"))
-            create_paths(get_value_from_json("AutoCreateFiles"))
-        if get_value_from_json("StopOnDeletion"):
-            break
+try:
+    if get_value_from_json("Nuke")["RequireConfirm"]:
+        if get_value_from_json("Nuke")["RequirePassword"]:
+            if input("CAUTION, Are you sure you want to nuke? (y/n): ") == "y":
+                if "nuke" in get_value_from_json("SpecificLogging"):
+                    logIfAllowed(f"Entering password for nuke.", 'warning')
+                while input("Enter password: ") != get_value_from_json("Nuke")["Password"]:
+                    print("Incorrect password.")
+                    if "nuke" in get_value_from_json("SpecificLogging"):
+                        logIfAllowed(f"Incorrect password for nuke entered.", 'info')
+            else:
+                print("Cancelled.")
+                if "nuke" in get_value_from_json("SpecificLogging"):
+                    logIfAllowed(f"Nuke cancelled", 'info')
+                exit()
         else:
-            time.sleep(60* get_value_from_json('SleepMinutesWhileLoop'))
-    else:
-        time.sleep(60* get_value_from_json('SleepMinutesWhileLoop'))
+            if input("CAUTION, Are you sure you want to nuke? (y/n): ") == "y":
+                pass
+            else:
+                print("Cancelled.")
+                if "nuke" in get_value_from_json("SpecificLogging"):
+                    logIfAllowed(f"Nuke cancelled", 'info')
+                exit()
+    elif get_value_from_json("Nuke")["RequirePassword"]:
+        if "nuke" in get_value_from_json("SpecificLogging"):
+            logIfAllowed(f"Entering password for nuke.", 'warning')
+        while input("Enter password: ") != get_value_from_json("Nuke")["Password"]:
+            print("Incorrect password.")
+            if "nuke" in get_value_from_json("SpecificLogging"):
+                logIfAllowed(f"Incorrect password for nuke entered.", 'info')
+
+except Exception as e:
+    if "errors" in get_value_from_json("SpecificLogging"):
+        logIfAllowed(f"{e}", 'error')
+    exit()
+
+if "nuke" in get_value_from_json("SpecificLogging"):
+    logIfAllowed(f"Nuke Activated", 'warning')
+
+delete_paths(get_value_from_json('DeleteThesePaths'))
+if get_value_from_json("SaveOnDeletion"):
+    saveMeNow()
+try:
+    if get_value_from_json("ResetSettingsOnDeletion")["UseThisSetting"]:
+        resetSettings()
+except Exception as e:
+    if "errors" in get_value_from_json("SpecificLogging"):
+        logIfAllowed(f"{e}", 'error')
+if get_value_from_json("AutoCreateOnDeletion"):
+    create_paths(get_value_from_json("AutoCreateFolders"))
+    create_paths(get_value_from_json("AutoCreateFiles"))

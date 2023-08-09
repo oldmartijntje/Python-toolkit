@@ -2,15 +2,19 @@
 some nice tools
 
 
-## areYouDeadAlready.py + saveTheFilesLOL.py
+## areYouDeadAlready.py + saveTheFilesLOL.py + nuke.py + testDeadSettings.py
 
 These are two scripts that go together.
 
 You can use this to secure private information. Everything stays safe, until you haven't confirmed that you are alive in X days. (highly customisable) If you haven't confirmed it for the set amount of days, it will delete the by you registered folders and files.
 
-saveTheFilesLOL.py is the file you can manually confirm that you are alive.
+- saveTheFilesLOL.py is the file you can manually confirm that you are alive.
 
-areYouDeadAlready.py is the brains behind it, you should run this at startup.
+- areYouDeadAlready.py is the brains behind it, you should run this at startup.
+
+- nuke.py is to instantly activate being dead. AKA deleting whatever you wanted to delete.
+
+- testDeadSettings.py is used to test if your settings are valid, and if you set them as your wish. it will not test logging settings.
 
 It's customisable with the settings.json that it will autocreate on startup of either of the programs. It will have the following contents by default:
 
@@ -41,8 +45,22 @@ It's customisable with the settings.json that it will autocreate on startup of e
             "AutoCreateFiles",
             "DeleteThesePaths"
         ],
-        "UseThisSetting": true,
+        "UseThisSetting": false,
         "CompareTo": "DEFAULT"
+    },
+    "SpecificLogging": [
+        "create",
+        "errors",
+        "settingsChange",
+        "saves",
+        "deletions",
+        "nuke"
+    ],
+    "Nuke": {
+        "RequireConfirm": true,
+        "RequirePassword": true,
+        "Password": "404NF",
+        "ActivateOtherJSON": ""
     }
 }
 ```
@@ -61,6 +79,12 @@ I will explain how everything works.
 - `AutoCreateOnDeletion` does recreate the things you put in `AutoCreateFolders` and `AutoCreateFiles` after the deletion happens
 - `LoopAfterStartup` makes it so it loops after checking once. if you turn this to false it will close the program (areYouDeadAlready.py) after checking once to see if it has been X days. which is instantly.
 - `ResetSettingsOnDeletion` makes it so you can reset this settings.json when the files get deleted.
-    - `ResetTheFollowingSettingsOnDeletion` will decide what settings will be reset. You can't reset only a single one of the `ResetSettingsOnDeletion` dictionary to reset, to reset any of these, reset `ResetSettingsOnDeletion`.
+    - `ResetTheFollowingSettingsOnDeletion` will decide what settings will be reset. You can't reset only a single setting in a subdict like the `ResetSettingsOnDeletion` dictionary to reset, to reset any of these, reset `ResetSettingsOnDeletion`.
     - `UseThisSetting` will decide if you use this setting or not
-    - `CompareTo` will decide on where it get's the settings it will reset from, if set to `DEFAULT` it will take the settings shown above, if set to another .json file, it will take the settings from there. Make sure it has the settings in there, and the file exists, this part does not have error handling / prevention. Probably handy to just copy paste the one auto-generated and put it to `settings copy.json`
+    - `CompareTo` will decide on where it get's the settings it will reset from, if set to `DEFAULT` it will take the settings shown above, if set to another .json file, it will take the settings from there. Make sure it has the settings in there, and the file exists, this part does have error handling but it will just ignore it if it throws up an error. Probably handy to just copy paste the one auto-generated and put it to `settings copy.json`
+- `SpecificLogging` is what types of logging messages you want, these are all types that exist. They might not be indicated well in the file itself, but it should make sense.
+- `Nuke` is a subdict of settings for nuke.py
+    - `RequireConfirm` is used so you will be asked a confirmation or not before launching the nuke.
+    - `RequirePassword` is used to ask for your password before launching a nuke.
+    - `Password` is the password you need to enter if you have `RequirePassword` enabled. It's stored as an exact string, so someone who knows to find this json will still be able to pass
+    - `ActivateOtherJSON` is used for storing your nuke button in another location then the other programs. keep this an empty string if they all use the same json. enter the path to the json to nuke that other json. it will take all the settings from that json mentioned, so a perfect way to make the `Password` a bit harder to find.

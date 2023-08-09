@@ -40,7 +40,8 @@ def saveMeNow():
     file_data = read_json_file(filename)
     file_data['LastTimeSaved'] = datetime_to_int(datetime.datetime.now())
     write_json_file(filename, file_data)
-    logIfAllowed(f"Saved by user.", 'info')
+    if "saves" in get_value_from_json("SpecificLogging"):
+        logIfAllowed(f"Saved by user.", 'info')
 
 def logIfAllowed(message, mode):
     if get_value_from_json('Logging'):
@@ -71,6 +72,13 @@ defaultJson = {
         "ResetTheFollowingSettingsOnDeletion": ["AutoCreateFolders", "AutoCreateFiles", "DeleteThesePaths"],
         "UseThisSetting": False,
         "CompareTo": "DEFAULT"
+    },
+    "SpecificLogging": ["create","errors", "settings", "saves", "deletions", "nuke"],
+    "Nuke": {
+        "RequireConfirm": True,
+        "RequirePassword": True,
+        "Password": "404NF",
+        "ActivateOtherJSON": ""
     }
 }
 
