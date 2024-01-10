@@ -410,7 +410,7 @@ There are some default variables defined. You can use any of them by default, un
     "id": {
         "type": "int",
         "value": {
-            "unique": True,
+            "unique": true,
             "uniqueIdentifier": "id"
         }
     },
