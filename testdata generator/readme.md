@@ -103,9 +103,9 @@ there are the following types:
 - `int`
 - `bool`
 - `string`
-- `float` (unused)
+- `float`
 
-every time has it's own things to know about it. I'll cover them 1 by 1. (except for the float, since it's unused. It should work in theory, but ¯\\_ (ツ)_/¯ )
+every time has it's own things to know about it. I'll cover them 1 by 1.
 
 ### string
 
@@ -179,6 +179,8 @@ all the above arguments are optional, if they are missing they will default to:
 
 with `unique` set to false, `uniqueIdentifier` will be ignored.
 
+You can also turn `min` and `max` into numbers below 0, just remember that `min` should be smaller than `max`.
+
 ### json
 
 already seen an example, but here is it again:
@@ -208,7 +210,24 @@ Anything in value can be your normal json. Make it however big you want, and in 
 
 ### float
 
-It is never tested of it works, it probably won't.
+Floats work the same as ints:
+
+```json
+"floats": {
+    "type": "float",
+    "value": {
+        "min": 0.1,
+        "max": 1000.0001,
+        "unique": true,
+        "uniqueIdentifier": "id"
+    }
+}
+```
+
+only differences between float and int:
+- `unique` counts with steps of `0.1` if it's a float.
+
+remember that if you use the same `uniqueIdentifier` between an int and float, it'll depend on which one gets checked first. The one that checks first gets to decide what variable it'll be.
 
 ### recursion
 
@@ -363,12 +382,13 @@ You can change the above example into the example below and it will still work.
 
 The only thing this changes is that it will keep quotes <kbd>"</kbd> around the value.
 
-This works with all types and they should still behave the same. But when `float` will be implemented, it won't work on that one. But it works on the other types.
+This works with all types and they should still behave the same. Except for `float`, it won't work on that one. But it works on the other types.
 
 Things that will start working differently:
 
 - `unique` will add "1" to the end of the string instead of counting upwards.
 - the `json` type will fully be stringified json.
+- don't turn `min` or `max` into a string, If they stay as a int, it will work with the type being string. Otherwise it'll crash.
 
 ## Defaults
 

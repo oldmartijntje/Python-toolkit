@@ -78,20 +78,33 @@ def getRandomFromData(data, typeOfData):
             if data["uniqueIdentifier"] in used:
                 if type(used[data["uniqueIdentifier"]]) is str:
                     used[data["uniqueIdentifier"]] = used[data["uniqueIdentifier"]] + "1"
+                elif type(used[data["uniqueIdentifier"]]) is float:
+                    used[data["uniqueIdentifier"]] = used[data["uniqueIdentifier"]] + 0.1
                 else:
                     used[data["uniqueIdentifier"]] += 1
             else:
                 if 'min' in data:
                     used[data["uniqueIdentifier"]] = data['min']
+                elif typeOfData == 'float':
+                    used[data["uniqueIdentifier"]] = 0.1
                 else:
                     used[data["uniqueIdentifier"]] = 0
             return used[data["uniqueIdentifier"]]
         elif 'min' in data and 'max' in data:
-            return random.randint(data['min'], data['max'])
+            if typeOfData == 'float':
+                return random.uniform(data['min'], data['max'])
+            else:
+                return random.randint(data['min'], data['max'])
         elif 'min' in data:
-            return random.randint(data['min'], 100)
+            if typeOfData == 'float':
+                return random.uniform(data['min'], 100)
+            else:
+                return random.randint(data['min'], 100.001)
         elif 'max' in data:
-            return random.randint(0, data['max'])
+            if typeOfData == 'float':
+                return random.uniform(0, data['max'])
+            else:
+                return random.randint(0.1, data['max'])
         elif typeOfData == 'json':
             return stringify_json(data)
         else:
