@@ -1,0 +1,28 @@
+{
+    "generate": [
+        {
+            "type": "user",
+            "amount": 10
+        }
+    ],
+    "settings": {
+        "nullableChancePercentage": 10,
+        "useDefaultValues": true
+    },
+    "library": {
+        "user": {
+            "type": "json",
+            "value": {
+                "name": "||firstName|| ||lastName||",
+                "username": "||stringDigit||||lowerChar||||upperChar||||lowerChar||||boolean||||firstName||",
+                "properties": {
+                    "isBald": "||boolean||"
+                },
+                "id": "||id||"
+            },
+            "nullable": [
+                "username"
+            ]
+        }
+    }
+}

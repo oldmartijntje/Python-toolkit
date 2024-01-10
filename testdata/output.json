@@ -1,0 +1,84 @@
+{
+    "user": [
+        {
+            "name": "Jane Hayes",
+            "username": "3oKrfalseDavid",
+            "properties": {
+                "isBald": false
+            },
+            "id": 0
+        },
+        {
+            "name": "Jane De_Groot",
+            "username": "4hJttrueJane",
+            "properties": {
+                "isBald": true
+            },
+            "id": 1
+        },
+        {
+            "name": "Jill Grant",
+            "username": "2nPntrueDavid",
+            "properties": {
+                "isBald": true
+            },
+            "id": 2
+        },
+        {
+            "name": "Robbie Fillmore",
+            "username": "3uBxfalseEmiel",
+            "properties": {
+                "isBald": true
+            },
+            "id": 3
+        },
+        {
+            "name": "Jack Smit",
+            "username": "5rQqfalseJack",
+            "properties": {
+                "isBald": false
+            },
+            "id": 4
+        },
+        {
+            "name": "Jim Polk",
+            "username": "2rZefalseJasmine",
+            "properties": {
+                "isBald": true
+            },
+            "id": 5
+        },
+        {
+            "name": "Jasmine Tyler",
+            "username": "6tAptrueRobbie",
+            "properties": {
+                "isBald": false
+            },
+            "id": 6
+        },
+        {
+            "name": "Jane Roosevelt",
+            "username": "5lHbfalseTimo",
+            "properties": {
+                "isBald": true
+            },
+            "id": 7
+        },
+        {
+            "name": "Jasmine Tyler",
+            "username": "2mMhfalseJack",
+            "properties": {
+                "isBald": false
+            },
+            "id": 8
+        },
+        {
+            "name": "Tijmen Arthur",
+            "username": "4jJcfalseTom",
+            "properties": {
+                "isBald": false
+            },
+            "id": 9
+        }
+    ]
+}
