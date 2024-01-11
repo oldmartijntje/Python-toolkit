@@ -489,6 +489,8 @@ There are some default variables defined. You can use any of them by default, un
 
 - [Navigator](#navigator)
 
+a default file for extra defaults, if you always use a specific data format, you can define it there without making the input.json hard to read
+
 print every 1000/ 100 replacements on how many have been replaced, and how many are left.
 
 Making the following types:
