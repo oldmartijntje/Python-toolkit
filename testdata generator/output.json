@@ -1,79 +1,81 @@
 {
     "user": [
         {
-            "name": "Jasmine De Boer",
-            "username": "0kQetrueJill",
+            "name": "Tijmen McKinley",
+            "username": "9tObfalseJill",
             "properties": {
-                "isBald": false
+                "isBald": true
             },
             "id": 0
         },
         {
-            "name": "Jesse Madison",
-            "username": "6qLntrueJohn",
-            "properties": {},
+            "name": "Emiel Hayes",
+            "username": "5iAotrueMartijn",
+            "properties": {
+                "isBald": false
+            },
             "id": 1
         },
         {
-            "name": "Jesse Janssen",
-            "username": "6bVmfalseTimo",
+            "name": "Emiel Harding",
+            "username": "3bSufalseDonald",
             "properties": {
                 "isBald": true
             },
             "id": 2
         },
         {
-            "name": "Martin De Boer",
-            "username": "8hYsfalseJane",
+            "name": "David Tyler",
+            "username": "1uOjfalseDavid",
             "properties": {
-                "isBald": false
+                "isBald": true
             },
             "id": 3
         },
         {
-            "name": "Donald Cleveland",
-            "username": "1dLbtrueTom",
+            "name": "Martijn Garfield",
+            "username": "2bYifalseMartijn",
             "properties": {
-                "isBald": true
+                "isBald": false
             },
             "id": 4
         },
         {
-            "name": "Thomas Roosevelt",
-            "username": "3lJetrueJohn",
+            "name": "Robbie Bush",
+            "username": "7qOdfalseJohn",
             "properties": {
                 "isBald": false
             },
             "id": 5
         },
         {
-            "name": "Joe Jefferson",
-            "username": "9jHmfalseTom",
+            "name": "Tijmen Visser",
+            "username": "2tJftrueJasmine",
             "properties": {
-                "isBald": true
+                "isBald": false
             },
             "id": 6
         },
         {
-            "name": "Tina Lincoln",
-            "username": null,
+            "name": "Tijl Buchanan",
+            "username": "0zIyfalseDonald",
             "properties": {
-                "isBald": false
+                "isBald": true
             },
             "id": 7
         },
         {
-            "name": "Jenny Bakker",
-            "username": "3gOotrueJane",
-            "properties": {
-                "isBald": true
-            },
+            "name": "Tijmen Meijer",
+            "username": "7eUefalseJoe",
+            "properties": {},
             "id": 8
         },
         {
-            "name": "David Bakker",
-            "username": "4tNhfalseJohn",
-            "properties": {},
+            "name": "Martin Trump",
+            "username": "3cKvfalseEmiel",
+            "properties": {
+                "isBald": true
+            },
             "id": 9
         }
     ]

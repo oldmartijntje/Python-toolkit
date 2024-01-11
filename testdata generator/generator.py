@@ -256,9 +256,10 @@ defaultValues = {
         "value": "||firstName|| ||lastName||"
     }
 }
+loops = 0
 
-version = "1.0.0"
-print(f"Welcome to the json generator v{version} by OldMartijntje")
+version = "1.1.0"
+print(f"Welcome to the json generator version {version} by OldMartijntje")
 print("Creating structure...")
 
 if does_file_exist(fileName):
@@ -302,13 +303,15 @@ print("Replacing values...")
 output = stringify_json(output)
 while True:
     found = False
+    if loops % 100 == 0 and loops != 0:
+        print(f"{loops} loops done, approx {output.count("|")// 4} values left to replace")
     for definedKeys in data['library'].keys():
         find = '||' + definedKeys + '||'
         if find in output:
             found = True
             selectedData = data['library'][definedKeys]
             output = getValue(selectedData, output)
-            
+    loops += 1    
     if not found:
         break
 
