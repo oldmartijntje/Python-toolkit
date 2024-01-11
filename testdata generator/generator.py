@@ -287,7 +287,7 @@ defaultValues = {
 }
 loops = 0
 
-version = "1.3.0"
+version = "1.4.0"
 print(f"Welcome to the json generator version {version} by OldMartijntje")
 print("Creating structure...")
 
@@ -366,8 +366,13 @@ while True:
         print(f"{loops} loops done, approx {output.count("|")// 4} values left to replace")
     for definedKeys in data['library'].keys():
         find = '||' + definedKeys + '||'
-        if find in output:
-            found = True
+        amountOfHits = output.count(find)
+        if amountOfHits == 0:
+            continue
+        found = True
+        if amountOfHits > 10:
+            amountOfHits = 10
+        for x in range(amountOfHits):
             selectedData = data['library'][definedKeys]
             output = getValue(selectedData, output, data)
     loops += 1    

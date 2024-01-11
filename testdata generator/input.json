@@ -1,8 +1,8 @@
 {
     "generate": [
         {
-            "type": "user",
-            "amount": 10
+            "type": "biome",
+            "amount": "biomes"
         }
     ],
     "settings": {
@@ -13,25 +13,38 @@
         "extraVariables": [
             "henk.json"
         ],
-        "useExtraVariables": false
+        "useExtraVariables": true
     },
     "library": {
-        "user": {
+        "biome": {
             "type": "json",
             "value": {
-                "name": "||firstName|| ||lastName||",
-                "username": "||stringDigit||||lowerChar||||upperChar||||lowerChar||||boolean||||firstName||",
-                "properties": {
-                    "isBald": "||boolean||"
-                },
-                "id": "||id||"
-            },
-            "nullable": [
-                "username"
-            ],
-            "undefinedable": [
-                "properties.isBald"
-            ]
+                "biome": "minecraft:mushroom_fields",
+                "parameters": {
+                    "temperature": [
+                        "||2-2||",
+                        "||2-2||"
+                    ],
+                    "humidity": [
+                        "||2-2||",
+                        "||2-2||"
+                    ],
+                    "continentalness": [
+                        "||2-2||",
+                        "||2-2||"
+                    ],
+                    "erosion": [
+                        "||2-2||",
+                        "||2-2||"
+                    ],
+                    "weirdness": [
+                        "||2-2||",
+                        "||2-2||"
+                    ],
+                    "depth": "||2-2||",
+                    "offset": "||0-1||"
+                }
+            }
         }
     }
 }
