@@ -83,6 +83,13 @@ def getRandomFromData(data, fullJsonObject, officialData):
         variable = usedSingularityIds[fullJsonObject['singularityId']][randomInt]
         usedSingularityIds[fullJsonObject['singularityId']].pop(randomInt)
         return variable
+    elif fullJsonObject['type'] == 'list':
+        if 'min' not in fullJsonObject:
+            fullJsonObject['min'] = 1
+        if 'max' not in fullJsonObject:
+            fullJsonObject['max'] = 10
+        var = [ data for x in range(random.randint(fullJsonObject['min'], fullJsonObject['max']))]
+        return stringify_json(var)
     if type(data) is list:
         return data[random.randint(0, len(data) - 1)]
     elif type(data) is dict:
@@ -145,6 +152,8 @@ def getValue(selectedData, output, officialData):
         case 'bool':
             output = checkForPureString(output, find, str(randomValue).lower())
         case 'json':
+            output = checkForPureString(output, find, randomValue)
+        case 'list':
             output = checkForPureString(output, find, randomValue)
         case 'singularity':
             output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
@@ -271,13 +280,14 @@ defaultValues = {
         "value": "||firstName|| ||lastName||"
     },
     "null": {
-        "type": "bool",
-        "value": ["null"]
+        "type": "list",
+        "value": None,
+        "max": 1
     }
 }
 loops = 0
 
-version = "1.1.0"
+version = "1.2.0"
 print(f"Welcome to the json generator version {version} by OldMartijntje")
 print("Creating structure...")
 

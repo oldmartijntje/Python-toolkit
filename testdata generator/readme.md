@@ -1,6 +1,6 @@
 # Navigator
 
-v1.1.0
+v1.2.0
 
 - [Testdata Generator](#testdata-generator)
     - [Settings](#settings)
@@ -8,10 +8,11 @@ v1.1.0
     - [Library](#library)
         - [Types](#types)
             - [String](#string)
-            - [Bool](#bool) - is also nullable?
+            - [Bool](#bool)
             - [Intager](#int)
             - [JSON](#json)
             - [Float](#float)
+            - [List](#list)
             - [Singularity](#singularity)
         - [Recursion (What are the "||" doing everywhere?)](#recursion)
         - [Warnings](#warnings)
@@ -174,7 +175,7 @@ bool is also just a randomiser that removes quotes. so in theory you can also do
 }
 ```
 
-The above example will take the null string and place it as the null variable. Why does this work? I have no clue. But as long as this is mentioned here in the readme, it will still work.
+The above example will take the null string and place it as the null variable. Why does this work? I have no clue. But as long as this is mentioned here in the readme, it will still work. It's not adviced. I'd advice to use a [List](#list) instead. Just like I do it with the default variables.
 
 ### int
 
@@ -263,6 +264,46 @@ only differences between float and int:
 - `unique` counts with steps of `0.1` if it's a float.
 
 remember that if you use the same `uniqueIdentifier` between an int and float, it'll depend on which one gets checked first. The one that checks first gets to decide what variable it'll be.
+
+### List
+
+```json
+"usernames": {
+    "type": "list",
+    "value": "||firstName||",
+    "min": 1,
+    "max": 10
+}
+```
+
+the list has takes `value` and makes a list with `min`-`max` of the `value` in it. In this example i'd get a list of 1-10 names
+
+- `min` is optional, defaults to 1
+- `max` is optional, defaults to 10
+- `value` is advised to be a string, but it can literally be everything, as shown in the next example:
+
+```json
+"usernames": {
+    "type": "list",
+    "value": [
+        "||firstName||",
+        null,
+        "||firstName||.||lastName||",
+        true,
+        false,
+        3.14,
+        365,
+        "henk",
+        {
+            "name": "||firstName|| ||lastName||"
+        }
+    ],
+    "min": 1,
+    "max": 10
+}
+```
+
+This will work. But using the string method is the cleanest since then you'll keep the structure formatting the same across the document.
 
 ### Singularity
 
@@ -543,8 +584,9 @@ There are some default variables defined. You can use any of them by default, un
         "value": "||firstName|| ||lastName||"
     },
     "null": {
-        "type": "bool",
-        "value": ["null"]
+        "type": "list",
+        "value": null,
+        "max": 1
     }
 }
 ```
@@ -558,7 +600,3 @@ a default file for extra defaults, if you always use a specific data format, you
 Making the following types:
 - datetime
 - versioning
-
-instead of generating a number, generate it for each item in a list you provide. for example minecraft items. and then be able to use the value of that list. This might requere an extry type
-
-I also need a list type, so that you can decide how many items should be inside of a list. Dit is technisch gezien al mogenlijk: waar de list moet zet je een ||string|| neer en die heeft n list met "||data||" en "||data||||data||" en "||data||||data||||data||", maar dit is vervelender dan 2 nummers moeten plaatsen.
