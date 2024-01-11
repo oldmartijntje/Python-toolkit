@@ -1,6 +1,6 @@
 # Navigator
 
-v1.3.0
+v1.4.0
 
 - [Testdata Generator](#testdata-generator)
     - [Settings](#settings)
@@ -47,7 +47,8 @@ the following snippet is what the json values are that work
     "useDefaultValues": true,
     "returnIfSingularityIsEmpty": "||null||",
     "extraVariables": [],
-    "useExtraVariables": false
+    "useExtraVariables": false,
+    "looping": 25,
 },
 ```
 
@@ -57,6 +58,7 @@ the following snippet is what the json values are that work
 - `returnIfSingularityIsEmpty` is the value that will be placed if a singularity turns empty. This value will be placed a s a string, that's why the default is `||null||`,
 - `extraVariables` is a list of json files where you can keep extra variables stored. (so the input.json is less clutterish, and easier to edit.)
 - `useExtraVariables` decides if you use `extraVariables`
+- `looping` is the amount of times it checks for a variable per loop
 
 You can delete them all. When they are deleted they will revert to the default values as shown above in the codebox.
 

@@ -301,6 +301,9 @@ if does_file_exist(fileName):
     else:
         data['library'] = {**data['library'], **deepcopy(defaultValues)}
 
+    if "looping" not in data["settings"]:
+        data["settings"]["looping"] = 25
+
     if "nullableChancePercentage" not in data["settings"]:
         data["settings"]["nullableChancePercentage"] = 10
 
@@ -370,8 +373,8 @@ while True:
         if amountOfHits == 0:
             continue
         found = True
-        if amountOfHits > 10:
-            amountOfHits = 10
+        if amountOfHits > data["settings"]["looping"]:
+            amountOfHits = data["settings"]["looping"]
         for x in range(amountOfHits):
             selectedData = data['library'][definedKeys]
             output = getValue(selectedData, output, data)

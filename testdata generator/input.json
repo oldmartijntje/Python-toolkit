@@ -13,7 +13,8 @@
         "extraVariables": [
             "henk.json"
         ],
-        "useExtraVariables": true
+        "useExtraVariables": true,
+        "looping": 25
     },
     "library": {
         "biome": {

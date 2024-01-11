@@ -7,7 +7,12 @@
     ],
     "settings": {
         "nullableChancePercentage": 10,
-        "useDefaultValues": true
+        "undefinedableChancePercentage": 10,
+        "useDefaultValues": true,
+        "returnIfSingularityIsEmpty": "||null||",
+        "extraVariables": [],
+        "useExtraVariables": false,
+        "looping": 25
     },
     "library": {
         "user": {
@@ -22,6 +27,9 @@
             },
             "nullable": [
                 "username"
+            ],
+            "undefinedable": [
+                "properties.isBald"
             ]
         }
     }
