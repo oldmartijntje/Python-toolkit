@@ -38,11 +38,13 @@ the following snippet is what the json values are that work
 ```json
 "settings": {
     "nullableChancePercentage": 10,
+    "undefinedableChancePercentage": 10,
     "useDefaultValues": true
 },
 ```
 
-- `nullableChancePercentage` is the % of how much it should make variables null. This only happens to variables that ere set to be able to be null.
+- `nullableChancePercentage` is the % of how much it should make variables null. This only happens to variables that are set to be able to be null.
+- `undefinedableChancePercentage` is the same as `nullableChancePercentage`, but then for the chance of deleting the variable.
 - `useDefaultValues` decides if you make use of the default defined variables. More on that later.
 
 You can delete them both. When they are deleted they will revert to the default values as shown above in the codebox.
@@ -198,13 +200,19 @@ already seen an example, but here is it again:
     },
     "nullable": [
         "username"
+    ],
+    "undefinedable": [
+        "properties.isBald"
     ]
 }
 ```
 
 The explenation for the [|| characters everywhere is here](#recursion).
 
-- `nullable` makes it so that there is a chance to turn the variables in here into null, you can change the chance calculation in the [Settings](#settings)
+- `nullable` makes it so that there is a chance to turn the variables in here into null, you can change the chance calculation in the [Settings](#settings). To make it work with nested values, you write the full path with <kbd>.</kbd> in between.
+- `undefinedable` works the same as `nullable`. But instead ov setting the value to `null`, it deletes the value.
+
+If the path doesn't exist, it'll print it in the chat, and ignore it.
 
 Anything in value can be your normal json. Make it however big you want, and in any way you want.
 

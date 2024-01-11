@@ -7,6 +7,7 @@
     ],
     "settings": {
         "nullableChancePercentage": 10,
+        "undefinedableChancePercentage": 10,
         "useDefaultValues": true
     },
     "library": {
@@ -18,20 +19,14 @@
                 "properties": {
                     "isBald": "||boolean||"
                 },
-                "id": "||floats||"
+                "id": "||id||"
             },
             "nullable": [
                 "username"
+            ],
+            "undefinedable": [
+                "properties.isBald"
             ]
-        },
-        "floats": {
-            "type": "float",
-            "value": {
-                "min": 0.1,
-                "max": 1000.0001,
-                "unique": true,
-                "uniqueIdentifier": "id"
-            }
         }
     }
 }

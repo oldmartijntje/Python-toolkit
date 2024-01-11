@@ -70,7 +70,7 @@ def checkForPureString(output, find, randomValue):
         output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
     return output
 
-def getRandomFromData(data, typeOfData):
+def getRandomFromData(data, fullJsonObject):
     if type(data) is list:
         return data[random.randint(0, len(data) - 1)]
     elif type(data) is dict:
@@ -85,35 +85,44 @@ def getRandomFromData(data, typeOfData):
             else:
                 if 'min' in data:
                     used[data["uniqueIdentifier"]] = data['min']
-                elif typeOfData == 'float':
+                elif fullJsonObject['type'] == 'float':
                     used[data["uniqueIdentifier"]] = 0.1
                 else:
                     used[data["uniqueIdentifier"]] = 0
             return used[data["uniqueIdentifier"]]
         elif 'min' in data and 'max' in data:
-            if typeOfData == 'float':
+            if fullJsonObject['type'] == 'float':
                 return random.uniform(data['min'], data['max'])
             else:
                 return random.randint(data['min'], data['max'])
         elif 'min' in data:
-            if typeOfData == 'float':
+            if fullJsonObject['type'] == 'float':
                 return random.uniform(data['min'], 100)
             else:
                 return random.randint(data['min'], 100.001)
         elif 'max' in data:
-            if typeOfData == 'float':
+            if fullJsonObject['type'] == 'float':
                 return random.uniform(0, data['max'])
             else:
                 return random.randint(0.1, data['max'])
-        elif typeOfData == 'json':
-            return stringify_json(data)
+        elif fullJsonObject['type'] == 'json':
+            if 'test' in fullJsonObject:
+                1 + 1
+            newJson = deepcopy(fullJsonObject)
+            newJson = checkForNullAndUndefined(newJson)
+            return stringify_json(newJson)
         else:
             return data
     else:
         return data
     
+def printError(error):
+    if error not in errors:
+        errors.append(error)
+        print(error)
+    
 def getValue(selectedData, output):
-    randomValue = getRandomFromData(selectedData['value'], selectedData['type'])
+    randomValue = getRandomFromData(selectedData['value'], selectedData)
     match selectedData['type']:
         case 'string':
             output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
@@ -127,10 +136,46 @@ def getValue(selectedData, output):
             output = checkForPureString(output, find, randomValue)
     return output
 
+def edit_nested_value(data, path, new_value):
+    keys = path.split('.')
+    current = data
+    try:
+        for key in keys[:-1]:
+            current = current[key]
+        current[keys[-1]] = new_value
+        return True
+    except KeyError:
+        return False
+
+def delete_nested_value(data, path):
+    keys = path.split('.')
+    current = data
+    try:
+        for key in keys[:-1]:
+            current = current[key]
+        del current[keys[-1]]
+        return True
+    except (KeyError, TypeError):
+        return False
+    
+def checkForNullAndUndefined(output):
+    if 'nullable' in output:
+        for option in output['nullable']:
+            if random.randint(0, 100) <= data['settings']['nullableChancePercentage']:
+                if not edit_nested_value(output['value'], option, None):
+                    printError(f"Key {option} not found in variable, unable to set to null")
+    if 'undefinedable' in output:
+        for option in output['undefinedable']:
+            if random.randint(0, 100) <= data['settings']['undefinedableChancePercentage']:
+                if not delete_nested_value(output['value'], option):
+                    printError(f"Key {option} not found in variable, unable to delete")
+    return output['value']
+
 output = {}
 used = {}
 fileName = 'input.json'
 exportFileName = 'output.json'
+errors = []
 
 defaultValues = {
     "firstName": {
@@ -227,6 +272,9 @@ if does_file_exist(fileName):
     if "nullableChancePercentage" not in data["settings"]:
         data["settings"]["nullableChancePercentage"] = 10
 
+    if "undefinedableChancePercentage" not in data["settings"]:
+        data["settings"]["undefinedableChancePercentage"] = 10
+
     # print(data)
     for key in data['generate']:
         output[key['type']] = []
@@ -237,21 +285,17 @@ if does_file_exist(fileName):
                 exit()
             if data['library'][key['type']]['type'] == 'json':
                 output[key['type']].append(deepcopy(data['library'][key['type']]['value']))
+                output[key['type']][-1] = checkForNullAndUndefined(deepcopy(data['library'][key['type']]))
             else:
                 output[key['type']].append("||" + key['type'] + "||")
-            if 'nullable' in data['library'][key['type']]:
-                for option in data['library'][key['type']]['nullable']:
-                    if random.randint(0, 100) <= data['settings']['nullableChancePercentage']:
-                        stringifiedOutput = stringify_json(output[key['type']][-1])
-                        splitted = stringifiedOutput.split(f"\"{option}\":")
-                        newValue = f"\"{option}\":null"
-                        for i in range(len(splitted)):
-                            # if it is not the first item, remove everything till the first comma
-                            if i != 0:
-                                splitted[i] = splitted[i].split('"', 2)[2]
-                        stringifiedOutput = newValue.join(splitted)
-                        output[key['type']][-1] = parse_json(stringifiedOutput)
-                        
+            
+            
+
+else:
+    print("Input file not found")
+    input("Press enter to exit...")
+    exit()
+
 print("Replacing values...")
 output = stringify_json(output)
 while True:
