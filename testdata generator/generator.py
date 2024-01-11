@@ -257,6 +257,8 @@ defaultValues = {
     }
 }
 
+version = "1.0.0"
+print(f"Welcome to the json generator v{version} by OldMartijntje")
 print("Creating structure...")
 
 if does_file_exist(fileName):
