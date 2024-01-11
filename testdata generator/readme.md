@@ -489,4 +489,8 @@ There are some default variables defined. You can use any of them by default, un
 
 - [Navigator](#navigator)
 
-Making it instead of only nullable, also undefindable.
+Making the following types:
+- datetime
+- versioning
+
+instead of generating a number, generate it for each item in a list you provide. for example minecraft items. and then be able to use the value of that list. This might requere an extry type
