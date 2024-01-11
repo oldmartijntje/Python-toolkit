@@ -19,7 +19,7 @@
         "biome": {
             "type": "json",
             "value": {
-                "biome": "minecraft:mushroom_fields",
+                "biome": "||biomes||",
                 "parameters": {
                     "temperature": [
                         "||2-2||",
