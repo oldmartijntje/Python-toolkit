@@ -70,26 +70,38 @@ def checkForPureString(output, find, randomValue):
         output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
     return output
 
-def getRandomFromData(data, fullJsonObject):
+def getRandomFromData(data, fullJsonObject, officialData):
+    if fullJsonObject['type'] == 'singularity':
+        if fullJsonObject['singularityId'] not in usedSingularityIds:
+            usedSingularityIds[fullJsonObject['singularityId']] = deepcopy(data)
+        if len(usedSingularityIds[fullJsonObject['singularityId']]) == 0:
+            if "redoIfSingularityIsEmpty" in fullJsonObject and fullJsonObject["redoIfSingularityIsEmpty"] == True:
+                usedSingularityIds[fullJsonObject['singularityId']] = deepcopy(data)
+            else:
+                return officialData['settings']['returnIfSingularityIsEmpty']
+        randomInt = random.randint(0, len(usedSingularityIds[fullJsonObject['singularityId']]) - 1)
+        variable = usedSingularityIds[fullJsonObject['singularityId']][randomInt]
+        usedSingularityIds[fullJsonObject['singularityId']].pop(randomInt)
+        return variable
     if type(data) is list:
         return data[random.randint(0, len(data) - 1)]
     elif type(data) is dict:
         if 'unique' in data and data['unique'] == True and 'uniqueIdentifier' in data:
-            if data["uniqueIdentifier"] in used:
-                if type(used[data["uniqueIdentifier"]]) is str:
-                    used[data["uniqueIdentifier"]] = used[data["uniqueIdentifier"]] + "1"
-                elif type(used[data["uniqueIdentifier"]]) is float:
-                    used[data["uniqueIdentifier"]] = used[data["uniqueIdentifier"]] + 0.1
+            if data["uniqueIdentifier"] in usedVariableForIds:
+                if type(usedVariableForIds[data["uniqueIdentifier"]]) is str:
+                    usedVariableForIds[data["uniqueIdentifier"]] = usedVariableForIds[data["uniqueIdentifier"]] + "1"
+                elif type(usedVariableForIds[data["uniqueIdentifier"]]) is float:
+                    usedVariableForIds[data["uniqueIdentifier"]] = usedVariableForIds[data["uniqueIdentifier"]] + 0.1
                 else:
-                    used[data["uniqueIdentifier"]] += 1
+                    usedVariableForIds[data["uniqueIdentifier"]] += 1
             else:
                 if 'min' in data:
-                    used[data["uniqueIdentifier"]] = data['min']
+                    usedVariableForIds[data["uniqueIdentifier"]] = data['min']
                 elif fullJsonObject['type'] == 'float':
-                    used[data["uniqueIdentifier"]] = 0.1
+                    usedVariableForIds[data["uniqueIdentifier"]] = 0.1
                 else:
-                    used[data["uniqueIdentifier"]] = 0
-            return used[data["uniqueIdentifier"]]
+                    usedVariableForIds[data["uniqueIdentifier"]] = 0
+            return usedVariableForIds[data["uniqueIdentifier"]]
         elif 'min' in data and 'max' in data:
             if fullJsonObject['type'] == 'float':
                 return random.uniform(data['min'], data['max'])
@@ -121,8 +133,8 @@ def printError(error):
         errors.append(error)
         print(error)
     
-def getValue(selectedData, output):
-    randomValue = getRandomFromData(selectedData['value'], selectedData)
+def getValue(selectedData, output, officialData):
+    randomValue = getRandomFromData(selectedData['value'], selectedData, officialData)
     match selectedData['type']:
         case 'string':
             output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
@@ -134,6 +146,8 @@ def getValue(selectedData, output):
             output = checkForPureString(output, find, str(randomValue).lower())
         case 'json':
             output = checkForPureString(output, find, randomValue)
+        case 'singularity':
+            output = output.split(find, 1)[0] + str(randomValue) + output.split(find, 1)[1]
     return output
 
 def edit_nested_value(data, path, new_value):
@@ -172,7 +186,8 @@ def checkForNullAndUndefined(output):
     return output['value']
 
 output = {}
-used = {}
+usedVariableForIds = {}
+usedSingularityIds = {}
 fileName = 'input.json'
 exportFileName = 'output.json'
 errors = []
@@ -254,6 +269,10 @@ defaultValues = {
     "fullName": {
         "type": "string",
         "value": "||firstName|| ||lastName||"
+    },
+    "null": {
+        "type": "bool",
+        "value": ["null"]
     }
 }
 loops = 0
@@ -278,9 +297,20 @@ if does_file_exist(fileName):
     if "undefinedableChancePercentage" not in data["settings"]:
         data["settings"]["undefinedableChancePercentage"] = 10
 
+    if "returnIfSingularityIsEmpty" not in data["settings"]:
+        data["settings"]["returnIfSingularityIsEmpty"] = "||null||"
+
     # print(data)
     for key in data['generate']:
         output[key['type']] = []
+        if 'amount' not in key:
+            key['amount'] = 1
+        if type(key['amount']) is str and key['amount'] in data['library'] and data['library'][key['amount']]['type'] == 'singularity':
+            key['amount'] = len(data['library'][key['amount']]['value'])
+        elif type(key['amount']) is not int: 
+            print(f"Key {key['amount']} not found in library as a singularity, nor is it an integer")
+            input("Press enter to exit...")
+            exit()
         for x in range(key['amount']):
             if key['type'] not in data['library']:
                 print(f"Key {key['type']} not found in library")
@@ -310,7 +340,7 @@ while True:
         if find in output:
             found = True
             selectedData = data['library'][definedKeys]
-            output = getValue(selectedData, output)
+            output = getValue(selectedData, output, data)
     loops += 1    
     if not found:
         break

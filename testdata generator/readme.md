@@ -1,15 +1,18 @@
 # Navigator
 
+v1.1.0
+
 - [Testdata Generator](#testdata-generator)
     - [Settings](#settings)
     - [Generate](#generate)
     - [Library](#library)
         - [Types](#types)
             - [String](#string)
-            - [Bool](#bool)
+            - [Bool](#bool) - is also nullable?
             - [Intager](#int)
             - [JSON](#json)
             - [Float](#float)
+            - [Singularity](#singularity)
         - [Recursion (What are the "||" doing everywhere?)](#recursion)
         - [Warnings](#warnings)
         - [Advanced](#advanced)
@@ -39,15 +42,17 @@ the following snippet is what the json values are that work
 "settings": {
     "nullableChancePercentage": 10,
     "undefinedableChancePercentage": 10,
-    "useDefaultValues": true
+    "useDefaultValues": true,
+    "returnIfSingularityIsEmpty": "||null||"
 },
 ```
 
 - `nullableChancePercentage` is the % of how much it should make variables null. This only happens to variables that are set to be able to be null.
 - `undefinedableChancePercentage` is the same as `nullableChancePercentage`, but then for the chance of deleting the variable.
 - `useDefaultValues` decides if you make use of the default defined variables. More on that later.
+- `returnIfSingularityIsEmpty` is the value that will be placed if a singularity turns empty. This value will be placed a s a string, that's why the default is `||null||`
 
-You can delete them both. When they are deleted they will revert to the default values as shown above in the codebox.
+You can delete them all. When they are deleted they will revert to the default values as shown above in the codebox.
 
 ## Generate
 
@@ -67,7 +72,18 @@ First I'll show you an example:
 Generate is a list with dictionaries.
 In these Dictionaries there are 2 values:
 - `type` is the type of something you want to generate.
-- `amount` is the amount of it you need.
+- `amount` is the amount of it you need. This needs to be an intager. Or a key to an singularity. 
+
+```json
+"generate": [
+    {
+        "type": "user",
+        "amount": "randomiser"
+    }
+],
+```
+
+In the above example it will take the length of the [Singularity](#singularity) and create that many. 
 
 Type needs to be defined in the `library`. Read [library](#library) for more information.
 
@@ -148,6 +164,17 @@ This is an example of a bool:
 ```
 
 This is also taken from the default variables. WHen the program sees it is a `bool` type, it will grab a true or false. 
+
+bool is also just a randomiser that removes quotes. so in theory you can also do the following:
+
+```json
+"null": {
+    "type": "bool",
+    "value": ["null"]
+}
+```
+
+The above example will take the null string and place it as the null variable. Why does this work? I have no clue. But as long as this is mentioned here in the readme, it will still work.
 
 ### int
 
@@ -236,6 +263,39 @@ only differences between float and int:
 - `unique` counts with steps of `0.1` if it's a float.
 
 remember that if you use the same `uniqueIdentifier` between an int and float, it'll depend on which one gets checked first. The one that checks first gets to decide what variable it'll be.
+
+### Singularity
+
+a singularity is a list of strings, these strings will be randomly grabbed from the list every time it is loaded, untill the list is empty.
+
+```json
+"randomizer": {
+    "type": "singularity",
+    "value": [
+        "||firstName||",
+        "||null||",
+        "||fullName||",
+        "||int64||",
+        "||int32||",
+        "||boolean||",
+        "||upperChar||",
+        "||lowerChar||",
+        "||id||",
+        "||stringDigit||",
+        "||digit||",
+        "||lastName||",
+        "henk",
+        "owo"
+    ],
+    "singularityId": "someRandomNumber",
+    "redoIfSingularityIsEmpty": true
+}
+```
+
+This is an example I used to test it.
+- `value` should be a list of strings
+- `singularityId` is where it saves the progress. If you have multiple singularities with the same id, it'll be the first one that defines it to add it's items to the list.
+- `redoIfSingularityIsEmpty`, if it is `true`, it will refill the list if the list is empty, instead of using the default variable. 
 
 ### recursion
 
@@ -481,6 +541,10 @@ There are some default variables defined. You can use any of them by default, un
     "fullName": {
         "type": "string",
         "value": "||firstName|| ||lastName||"
+    },
+    "null": {
+        "type": "bool",
+        "value": ["null"]
     }
 }
 ```
@@ -490,8 +554,6 @@ There are some default variables defined. You can use any of them by default, un
 - [Navigator](#navigator)
 
 a default file for extra defaults, if you always use a specific data format, you can define it there without making the input.json hard to read
-
-print every 1000/ 100 replacements on how many have been replaced, and how many are left.
 
 Making the following types:
 - datetime
