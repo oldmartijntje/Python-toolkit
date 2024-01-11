@@ -1,6 +1,6 @@
 # Navigator
 
-v1.2.0
+v1.3.0
 
 - [Testdata Generator](#testdata-generator)
     - [Settings](#settings)
@@ -17,6 +17,7 @@ v1.2.0
         - [Recursion (What are the "||" doing everywhere?)](#recursion)
         - [Warnings](#warnings)
         - [Advanced](#advanced)
+    - [Seperate files](#seperate-files)
     - [Default Variables](#defaults)
 - [Future](#future)
 
@@ -44,14 +45,18 @@ the following snippet is what the json values are that work
     "nullableChancePercentage": 10,
     "undefinedableChancePercentage": 10,
     "useDefaultValues": true,
-    "returnIfSingularityIsEmpty": "||null||"
+    "returnIfSingularityIsEmpty": "||null||",
+    "extraVariables": [],
+    "useExtraVariables": false
 },
 ```
 
 - `nullableChancePercentage` is the % of how much it should make variables null. This only happens to variables that are set to be able to be null.
 - `undefinedableChancePercentage` is the same as `nullableChancePercentage`, but then for the chance of deleting the variable.
 - `useDefaultValues` decides if you make use of the default defined variables. More on that later.
-- `returnIfSingularityIsEmpty` is the value that will be placed if a singularity turns empty. This value will be placed a s a string, that's why the default is `||null||`
+- `returnIfSingularityIsEmpty` is the value that will be placed if a singularity turns empty. This value will be placed a s a string, that's why the default is `||null||`,
+- `extraVariables` is a list of json files where you can keep extra variables stored. (so the input.json is less clutterish, and easier to edit.)
+- `useExtraVariables` decides if you use `extraVariables`
 
 You can delete them all. When they are deleted they will revert to the default values as shown above in the codebox.
 
@@ -239,6 +244,8 @@ The explenation for the [|| characters everywhere is here](#recursion).
 
 - `nullable` makes it so that there is a chance to turn the variables in here into null, you can change the chance calculation in the [Settings](#settings). To make it work with nested values, you write the full path with <kbd>.</kbd> in between.
 - `undefinedable` works the same as `nullable`. But instead ov setting the value to `null`, it deletes the value.
+
+You can delete `nullable` and `undefinedable` if you don't need them.
 
 If the path doesn't exist, it'll print it in the chat, and ignore it.
 
@@ -499,6 +506,42 @@ Things that will start working differently:
 - the `json` type will fully be stringified json.
 - don't turn `min` or `max` into a string, If they stay as a int, it will work with the type being string. Otherwise it'll crash.
 
+## seperate files
+
+- [Navigator](#navigator)
+
+you can create your own jsons with variables, to be able to sort them and make your input.json less cluttered. [Settings](#settings) has more info about this.
+
+The only thing you have to do to make your file work is by making a .json file
+and you can then do two things.
+
+The clean approach:
+```json
+{
+    "library": {
+        "user2": {
+            "type": "json",
+            "value": {
+                "name": "||firstName|| ||lastName||",
+            }
+        }
+    }
+}
+```
+
+or the lazy approach:
+```json
+{
+    "user2": {
+        "type": "json",
+        "value": {
+            "name": "||firstName|| ||lastName||"
+        }
+    }
+}
+```
+Both works
+
 ## Defaults
 
 - [Navigator](#navigator)
@@ -594,8 +637,6 @@ There are some default variables defined. You can use any of them by default, un
 # Future
 
 - [Navigator](#navigator)
-
-a default file for extra defaults, if you always use a specific data format, you can define it there without making the input.json hard to read
 
 Making the following types:
 - datetime

@@ -287,7 +287,7 @@ defaultValues = {
 }
 loops = 0
 
-version = "1.2.0"
+version = "1.3.0"
 print(f"Welcome to the json generator version {version} by OldMartijntje")
 print("Creating structure...")
 
@@ -309,6 +309,25 @@ if does_file_exist(fileName):
 
     if "returnIfSingularityIsEmpty" not in data["settings"]:
         data["settings"]["returnIfSingularityIsEmpty"] = "||null||"
+
+    if "useExtraVariables" not in data["settings"] or data["settings"]["useExtraVariables"] == False:
+        data["settings"]['extraVariables'] = []
+    elif 'extraVariables' not in data["settings"]:
+        data["settings"]['extraVariables'] = []
+    
+    if len(data["settings"]['extraVariables']) > 0:
+        for extraVariable in data["settings"]['extraVariables']:
+            if does_file_exist(extraVariable):
+                extraData = read_json_file(extraVariable)
+                if 'library' in extraData:
+                    data['library'] = {**data['library'], **deepcopy(extraData['library'])}
+                elif type(extraData) is dict:
+                    data['library'] = {**data['library'], **deepcopy(extraData)}
+                else:
+                    print(f"Library not found in {extraVariable}")
+            else:
+                print(f"File {extraVariable} not found")
+            
 
     # print(data)
     for key in data['generate']:

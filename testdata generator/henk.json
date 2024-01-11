@@ -1,0 +1,15 @@
+{
+    "library": {
+        "user2": {
+            "type": "json",
+            "value": {
+                "name": "||firstName|| ||lastName||",
+                "username": "||stringDigit||||lowerChar||||upperChar||||lowerChar||||boolean||||firstName||",
+                "properties": {
+                    "isBald": "||boolean||"
+                },
+                "id": "||id||"
+            }
+        }
+    }
+}

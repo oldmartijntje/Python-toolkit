@@ -9,7 +9,11 @@
         "nullableChancePercentage": 10,
         "undefinedableChancePercentage": 10,
         "useDefaultValues": true,
-        "returnIfSingularityIsEmpty": "||null||"
+        "returnIfSingularityIsEmpty": "||null||",
+        "extraVariables": [
+            "henk.json"
+        ],
+        "useExtraVariables": false
     },
     "library": {
         "user": {

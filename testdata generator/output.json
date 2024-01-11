@@ -1,78 +1,162 @@
 {
     "user": [
         {
-            "name": "David Adams",
-            "username": "9oChfalseTijl",
+            "name": "Jack Meijer",
+            "username": "9yQqtrueTina",
             "properties": {
                 "isBald": false
             },
-            "id": 0
+            "id": 0,
+            "brother": {
+                "name": "Jenny Harding",
+                "username": "4iOqtrueDavid",
+                "properties": {
+                    "isBald": false
+                },
+                "id": 1
+            }
         },
         {
-            "name": "Jill Garfield",
-            "username": "4eXefalseJoe",
-            "properties": {
-                "isBald": false
-            },
-            "id": 1
-        },
-        {
-            "name": "Timo Johnson",
-            "username": "5eJlfalseTina",
-            "properties": {
-                "isBald": false
-            },
-            "id": 2
-        },
-        {
-            "name": "Jasmine Lincoln",
-            "username": "6sYhtrueJohn",
+            "name": "Emiel Wilson",
+            "username": "1fTtfalseJasmine",
             "properties": {},
-            "id": 3
+            "id": 2,
+            "brother": {
+                "name": "John Monroe",
+                "username": "0pMmtrueEmiel",
+                "properties": {
+                    "isBald": false
+                },
+                "id": 3
+            }
         },
         {
-            "name": "Tijl Grant",
-            "username": "4gJctrueTim",
+            "name": "Timo Harrison",
+            "username": "0iJzfalseThomas",
             "properties": {
                 "isBald": true
             },
-            "id": 4
+            "id": 4,
+            "brother": {
+                "name": "David Washington",
+                "username": "0kLmtrueTim",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 5
+            }
         },
         {
-            "name": "Tim Roosevelt",
-            "username": "0eTitrueJasmine",
+            "name": "Joe Koman",
+            "username": "5gDjfalseJenny",
             "properties": {
                 "isBald": false
             },
-            "id": 5
+            "id": 6,
+            "brother": {
+                "name": "Jenny Van_Dijk",
+                "username": "3eNvfalseMartijn",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 7
+            }
         },
         {
-            "name": "Jack Arthur",
-            "username": "7nXffalseDonald",
+            "name": "Thomas Taft",
+            "username": null,
             "properties": {
                 "isBald": false
             },
-            "id": 6
+            "id": 8,
+            "brother": {
+                "name": "David Jefferson",
+                "username": "8oFpfalseDavid",
+                "properties": {
+                    "isBald": false
+                },
+                "id": 9
+            }
         },
         {
-            "name": "Martijn Cleveland",
-            "username": "0aLdtrueJoe",
+            "name": "Robbie De Boer",
+            "username": "8lXmtrueTijmen",
+            "properties": {
+                "isBald": false
+            },
+            "id": 10,
+            "brother": {
+                "name": "Tom Grant",
+                "username": "6cEltrueTijl",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 11
+            }
+        },
+        {
+            "name": "Jill Bakker",
+            "username": "4cPltrueJenny",
+            "properties": {
+                "isBald": false
+            },
+            "id": 12,
+            "brother": {
+                "name": "Tijmen Monroe",
+                "username": "5jZafalseJill",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 13
+            }
+        },
+        {
+            "name": "Joe De_Vries",
+            "username": null,
             "properties": {
                 "isBald": true
             },
-            "id": 7
+            "id": 14,
+            "brother": {
+                "name": "Tina Mulder",
+                "username": "9dZttrueTimo",
+                "properties": {
+                    "isBald": false
+                },
+                "id": 15
+            }
         },
         {
-            "name": "Jesse Cleveland",
-            "username": "6lOitrueTom",
-            "properties": {},
-            "id": 8
+            "name": "Jack Trump",
+            "username": null,
+            "properties": {
+                "isBald": true
+            },
+            "id": 16,
+            "brother": {
+                "name": "Tijl Roosevelt",
+                "username": "4pCzfalseDavid",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 17
+            }
         },
         {
-            "name": "Tijmen Van Buren",
-            "username": "0dIjtrueTom",
-            "properties": {},
-            "id": 9
+            "name": "Jesse Jackson",
+            "username": "8gMrfalseJoe",
+            "properties": {
+                "isBald": false
+            },
+            "id": 18,
+            "brother": {
+                "name": "Tina Polk",
+                "username": "2vFutrueThomas",
+                "properties": {
+                    "isBald": true
+                },
+                "id": 19
+            }
         }
     ]
 }
