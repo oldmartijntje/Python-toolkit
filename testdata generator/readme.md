@@ -494,3 +494,5 @@ Making the following types:
 - versioning
 
 instead of generating a number, generate it for each item in a list you provide. for example minecraft items. and then be able to use the value of that list. This might requere an extry type
+
+I also need a list type, so that you can decide how many items should be inside of a list. Dit is technisch gezien al mogenlijk: waar de list moet zet je een ||string|| neer en die heeft n list met "||data||" en "||data||||data||" en "||data||||data||||data||", maar dit is vervelender dan 2 nummers moeten plaatsen.
