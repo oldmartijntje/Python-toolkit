@@ -1,132 +1,84 @@
 {
     "user": [
         {
-            "name": "Jasmine Grant",
-            "username": "1eSffalseMartijn",
+            "name": "Jasmine Koman",
+            "username": "8uXatrueMartin",
             "properties": {
-                "isBald": "owo"
+                "isBald": false
             },
             "id": 0
         },
         {
-            "name": "Tim Washington",
-            "username": "9nAntrueJim",
+            "name": "Tina Pierce",
+            "username": "8oQifalseJill",
             "properties": {
-                "isBald": "I"
+                "isBald": true
             },
             "id": 1
         },
         {
-            "name": "Timo Jefferson",
-            "username": "5vOrfalseJill",
+            "name": "Jill Harding",
+            "username": "8iNffalseTom",
             "properties": {
-                "isBald": "henk"
+                "isBald": false
             },
             "id": 2
         },
         {
-            "name": "Tijmen Kennedy",
-            "username": "9xQftrueDavid",
+            "name": "Tijmen Jackson",
+            "username": "4rYifalseEmiel",
             "properties": {
-                "isBald": 9095439212556130248
+                "isBald": false
             },
             "id": 3
         },
         {
-            "name": "Jill Koman",
-            "username": "8sIjfalseTijmen",
-            "properties": {
-                "isBald": 1813281506
-            },
-            "id": 4
-        },
-        {
-            "name": "John Clinton",
+            "name": "Jim De Boer",
             "username": null,
             "properties": {
                 "isBald": false
             },
+            "id": 4
+        },
+        {
+            "name": "Tina Grant",
+            "username": "2hKhfalseDavid",
+            "properties": {
+                "isBald": true
+            },
             "id": 5
         },
         {
-            "name": "Joe Meijer",
-            "username": "9vBdtrueMartijn",
+            "name": "Jasmine Jackson",
+            "username": "5rCtfalseTom",
             "properties": {
-                "isBald": "s"
+                "isBald": true
             },
             "id": 6
         },
         {
-            "name": "Timo Van-Haren",
-            "username": "8eBdfalseRobbie",
+            "name": "David Arthur",
+            "username": "0mNgtrueJesse",
             "properties": {
-                "isBald": "Robbie"
+                "isBald": false
             },
             "id": 7
         },
         {
-            "name": "Martin Trump",
-            "username": "5cCqfalseJane",
+            "name": "Thomas Clinton",
+            "username": null,
             "properties": {
-                "isBald": "Tom Arthur"
+                "isBald": false
             },
             "id": 8
         },
         {
-            "name": "Donald Tyler",
-            "username": "1nRdfalseTim",
+            "name": "Tina Grant",
+            "username": "0eSvtrueTijl",
             "properties": {
-                "isBald": "Meijer"
+                "isBald": true
             },
             "id": 9
-        },
-        {
-            "name": "Donald Clinton",
-            "username": "5pKtfalseDonald",
-            "properties": {
-                "isBald": 9
-            },
-            "id": 10
-        },
-        {
-            "name": "David De Boer",
-            "username": "0jGvfalseTijl",
-            "properties": {
-                "isBald": 11
-            },
-            "id": 12
-        },
-        {
-            "name": "Donald Arthur",
-            "username": "1bXhfalseMartin",
-            "properties": {
-                "isBald": null
-            },
-            "id": 13
-        },
-        {
-            "name": "Tijl Lincoln",
-            "username": "8dOltrueDavid",
-            "properties": {
-                "isBald": "3"
-            },
-            "id": 14
         }
-    ],
-    "randomizer": [
-        true,
-        7,
-        15,
-        "3",
-        "Jane Jefferson",
-        null,
-        "r",
-        "J",
-        3497589815434424577,
-        "henk",
-        "Martijn",
-        "Bakker",
-        755792599,
-        "owo"
     ]
 }

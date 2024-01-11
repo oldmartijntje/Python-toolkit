@@ -2,11 +2,7 @@
     "generate": [
         {
             "type": "user",
-            "amount": "randomizer"
-        },
-        {
-            "type": "randomizer",
-            "amount": "user"
+            "amount": 10
         }
     ],
     "settings": {
@@ -22,7 +18,7 @@
                 "name": "||firstName|| ||lastName||",
                 "username": "||stringDigit||||lowerChar||||upperChar||||lowerChar||||boolean||||firstName||",
                 "properties": {
-                    "isBald": "||randomizer||"
+                    "isBald": "||boolean||"
                 },
                 "id": "||id||"
             },
@@ -32,27 +28,6 @@
             "undefinedable": [
                 "properties.isBald"
             ]
-        },
-        "randomizer": {
-            "type": "singularity",
-            "value": [
-                "||firstName||",
-                "||null||",
-                "||fullName||",
-                "||int64||",
-                "||int32||",
-                "||boolean||",
-                "||upperChar||",
-                "||lowerChar||",
-                "||id||",
-                "||stringDigit||",
-                "||digit||",
-                "||lastName||",
-                "henk",
-                "owo"
-            ],
-            "singularityId": "someRandomNumber",
-            "redoIfSingularityIsEmpty": true
         }
     }
 }
