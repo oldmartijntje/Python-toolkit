@@ -13,7 +13,8 @@
         "extraVariables": [
             "henk.json"
         ],
-        "useExtraVariables": false
+        "useExtraVariables": false,
+        "looping": 25
     },
     "library": {
         "user": {
