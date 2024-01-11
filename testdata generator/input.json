@@ -1,8 +1,8 @@
 {
     "generate": [
         {
-            "type": "biome",
-            "amount": "biomes"
+            "type": "user",
+            "amount": 10
         }
     ],
     "settings": {
@@ -10,42 +10,27 @@
         "undefinedableChancePercentage": 10,
         "useDefaultValues": true,
         "returnIfSingularityIsEmpty": "||null||",
-        "extraVariables": [
-            "henk.json"
-        ],
-        "useExtraVariables": true,
+        "extraVariables": [],
+        "useExtraVariables": false,
         "looping": 25
     },
     "library": {
-        "biome": {
+        "user": {
             "type": "json",
             "value": {
-                "biome": "||biomes||",
-                "parameters": {
-                    "temperature": [
-                        "||2-2||",
-                        "||2-2||"
-                    ],
-                    "humidity": [
-                        "||2-2||",
-                        "||2-2||"
-                    ],
-                    "continentalness": [
-                        "||2-2||",
-                        "||2-2||"
-                    ],
-                    "erosion": [
-                        "||2-2||",
-                        "||2-2||"
-                    ],
-                    "weirdness": [
-                        "||2-2||",
-                        "||2-2||"
-                    ],
-                    "depth": "||2-2||",
-                    "offset": "||0-1||"
-                }
-            }
+                "name": "||firstName|| ||lastName||",
+                "username": "||stringDigit||||lowerChar||||upperChar||||lowerChar||||boolean||||firstName||",
+                "properties": {
+                    "isBald": "||boolean||"
+                },
+                "id": "||id||"
+            },
+            "nullable": [
+                "username"
+            ],
+            "undefinedable": [
+                "properties.isBald"
+            ]
         }
     }
 }
