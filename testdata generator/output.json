@@ -1,124 +1,80 @@
 {
     "user": [
         {
-            "name": "Jasmine Bakker",
-            "username": null,
-            "properties": {},
-            "id": 0,
-            "email": {
-                "name": "Martijn Hayes",
-                "username": null,
-                "properties": {},
-                "id": 1
-            }
+            "name": "Jasmine De Boer",
+            "username": "0kQetrueJill",
+            "properties": {
+                "isBald": false
+            },
+            "id": 0
         },
         {
-            "name": "Robbie Arthur",
-            "username": null,
+            "name": "Jesse Madison",
+            "username": "6qLntrueJohn",
             "properties": {},
-            "id": 2,
-            "email": {
-                "name": "Tina Madison",
-                "username": null,
-                "properties": {},
-                "id": 3
-            }
+            "id": 1
         },
         {
-            "name": "Jesse Van-Haren",
-            "username": null,
-            "properties": {},
-            "id": 4,
-            "email": {
-                "name": "David Johnson",
-                "username": null,
-                "properties": {},
-                "id": 5
-            }
+            "name": "Jesse Janssen",
+            "username": "6bVmfalseTimo",
+            "properties": {
+                "isBald": true
+            },
+            "id": 2
         },
         {
-            "name": "Robbie Kennedy",
-            "username": null,
-            "properties": {},
-            "id": 6,
-            "email": {
-                "name": "Tina Cleveland",
-                "username": null,
-                "properties": {},
-                "id": 7
-            }
+            "name": "Martin De Boer",
+            "username": "8hYsfalseJane",
+            "properties": {
+                "isBald": false
+            },
+            "id": 3
         },
         {
-            "name": "Martin De_Groot",
-            "username": null,
-            "properties": {},
-            "id": 8,
-            "email": {
-                "name": "Donald Obama",
-                "username": null,
-                "properties": {},
-                "id": 9
-            }
+            "name": "Donald Cleveland",
+            "username": "1dLbtrueTom",
+            "properties": {
+                "isBald": true
+            },
+            "id": 4
         },
         {
-            "name": "Jill Van-Haren",
-            "username": null,
-            "properties": {},
-            "id": 10,
-            "email": {
-                "name": "David Harding",
-                "username": null,
-                "properties": {},
-                "id": 11
-            }
+            "name": "Thomas Roosevelt",
+            "username": "3lJetrueJohn",
+            "properties": {
+                "isBald": false
+            },
+            "id": 5
         },
         {
-            "name": "Jane Roosevelt",
-            "username": null,
-            "properties": {},
-            "id": 12,
-            "email": {
-                "name": "Tina Kennedy",
-                "username": null,
-                "properties": {},
-                "id": 13
-            }
+            "name": "Joe Jefferson",
+            "username": "9jHmfalseTom",
+            "properties": {
+                "isBald": true
+            },
+            "id": 6
         },
         {
-            "name": "Martin Arthur",
+            "name": "Tina Lincoln",
             "username": null,
-            "properties": {},
-            "id": 14,
-            "email": {
-                "name": "Thomas Van-Haren",
-                "username": null,
-                "properties": {},
-                "id": 15
-            }
+            "properties": {
+                "isBald": false
+            },
+            "id": 7
         },
         {
-            "name": "Jim Lincoln",
-            "username": null,
-            "properties": {},
-            "id": 16,
-            "email": {
-                "name": "Martijn De_Groot",
-                "username": null,
-                "properties": {},
-                "id": 17
-            }
+            "name": "Jenny Bakker",
+            "username": "3gOotrueJane",
+            "properties": {
+                "isBald": true
+            },
+            "id": 8
         },
         {
-            "name": "Tim Bakker",
-            "username": null,
+            "name": "David Bakker",
+            "username": "4tNhfalseJohn",
             "properties": {},
-            "id": 18,
-            "email": {
-                "name": "Joe Arthur",
-                "username": null,
-                "properties": {},
-                "id": 19
-            }
+            "id": 9
         }
     ]
 }

@@ -489,6 +489,8 @@ There are some default variables defined. You can use any of them by default, un
 
 - [Navigator](#navigator)
 
+print every 1000/ 100 replacements on how many have been replaced, and how many are left.
+
 Making the following types:
 - datetime
 - versioning
