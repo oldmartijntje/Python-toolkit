@@ -161,6 +161,7 @@ for line in lines:
     website_url = line.strip()
     if line == "\n" or line == "":
         continue
+    print(f"Doing '{website_url}'")
 
     if ("youtube" in website_url and "watch?v=" in website_url) or "youtu.be" in website_url:
         result = get_youtube_info(website_url)
@@ -214,6 +215,15 @@ for line in lines:
             title = get_image_sources(result, {"required": [{"where": "class", "equals": "workshopItemTitle"}], "typeToFind": "div", "getType": "txt"})
             images = get_image_sources(result, {"required": [{"where": "class", "equals": "guidePreviewImage"}], "typeToFind": "div", "getType": "img", "imgIsChild": True, "childSettings": {"typeToFind": "img", "getType": "src"}}),
             whatIsIt = "Item"
+        elif "reddit.com/r/" in website_url and "comments/" in website_url:
+            title = website_url.split('/')[-2]
+            title = title.replace("_", " ")
+            images = get_image_sources(result)
+            if len(images) == 0:
+                pass
+            else:
+                images = images[0]
+            whatIsIt = "Article"
         
         elif website_url.endswith(".png") or website_url.endswith(".jpg") or website_url.endswith(".jpeg") or website_url.endswith(".gif"):
             images = [website_url]
@@ -254,6 +264,7 @@ for line in lines:
             "description": "",
             "bannerText": ""
         }
+print("Done!")
 
     
 
