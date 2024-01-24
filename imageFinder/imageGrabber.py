@@ -7,6 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_image_sources(html_string, settings={}, loop =0):
+    if html_string == None:
+        return []
     image_sources = []
     if "typeToFind" not in settings:
         settings["typeToFind"] = "img"
@@ -182,88 +184,92 @@ for line in lines:
             continue
 
     result = get_html(website_url)
-    if result is not None:
-        whatIsIt = "Website"
-        title = "",
-        images = ""
-        if "store.steampowered.com/app" in website_url:
-            whatIsIt = "Game"
-            title = get_image_sources(result, {"required": [{"where": "id", "equals": "appHubAppName"}], "typeToFind": "div", "getType": "txt"})
-            images = get_image_sources(result, {"required": [{"where": "class", "equals": ["game_header_image_full"]}]})
-        elif "urbandictionary.com/define" in website_url:
-            titleParts = website_url.split("?term=")
-            title = titleParts[len(titleParts) - 1]
-            title = title.replace("%20", " ")
-            images = "https://i.imgur.com/DD7StZ3.png"
-            whatIsIt = "Article"
-        elif "modrinth" in website_url:
-            title = get_image_sources(result, {"required": [{"where": "class", "equals": "title"}], "typeToFind": "h1", "getType": "txt"})
-            images = get_image_sources(result, {"required": [{"where": "class", "equals": "project__icon"}], "typeToFind": "img", "getType": "src"}),
-            whatIsIt = "Item"
-        elif "roblox.com/catalog" in website_url:
-            titleParts = website_url.split("/")
-            title = titleParts[len(titleParts) - 1]
-            title = title.replace("-", " ")
-            whatIsIt = "Item"
-        elif "roblox.com/games/" in website_url:
-            titleParts = website_url.split("/")
-            title = titleParts[len(titleParts) - 1]
-            title = title.replace("-", " ")
-            whatIsIt = "Game"
-            # images = get_image_sources(result, {"required": [{"where": "class", "equals": "thumbnail-2d-container"}], "typeToFind": "span", "imgIsChild": True, "childSettings": {"typeToFind": "img", "getType": "src"}})
-        elif "steamcommunity.com/" in website_url:
-            title = get_image_sources(result, {"required": [{"where": "class", "equals": "workshopItemTitle"}], "typeToFind": "div", "getType": "txt"})
-            images = get_image_sources(result, {"required": [{"where": "class", "equals": "guidePreviewImage"}], "typeToFind": "div", "getType": "img", "imgIsChild": True, "childSettings": {"typeToFind": "img", "getType": "src"}}),
-            whatIsIt = "Item"
-        elif "reddit.com/r/" in website_url and "comments/" in website_url:
-            title = website_url.split('/')[-2]
-            title = title.replace("_", " ")
-            images = get_image_sources(result)
-            if len(images) == 0:
-                pass
-            else:
-                images = images[0]
-            whatIsIt = "Article"
-        
-        elif website_url.endswith(".png") or website_url.endswith(".jpg") or website_url.endswith(".jpeg") or website_url.endswith(".gif"):
-            images = [website_url]
-        elif ".itch.io/" in website_url:
-            title = website_url.split(".itch.io/")[1]
+    
+    whatIsIt = "Website"
+    title = "",
+    images = ""
+    if "store.steampowered.com/app" in website_url:
+        whatIsIt = "Game"
+        title = get_image_sources(result, {"required": [{"where": "id", "equals": "appHubAppName"}], "typeToFind": "div", "getType": "txt"})
+        images = get_image_sources(result, {"required": [{"where": "class", "equals": ["game_header_image_full"]}]})
+    elif "urbandictionary.com/define" in website_url:
+        titleParts = website_url.split("?term=")
+        title = titleParts[len(titleParts) - 1]
+        title = title.replace("%20", " ")
+        images = "https://i.imgur.com/DD7StZ3.png"
+        whatIsIt = "Article"
+    elif "modrinth" in website_url:
+        title = get_image_sources(result, {"required": [{"where": "class", "equals": "title"}], "typeToFind": "h1", "getType": "txt"})
+        images = get_image_sources(result, {"required": [{"where": "class", "equals": "project__icon"}], "typeToFind": "img", "getType": "src"}),
+        whatIsIt = "Item"
+    elif "roblox.com/catalog" in website_url:
+        titleParts = website_url.split("/")
+        title = titleParts[len(titleParts) - 1]
+        title = title.replace("-", " ")
+        whatIsIt = "Item"
+    elif "roblox.com/games/" in website_url:
+        titleParts = website_url.split("/")
+        title = titleParts[len(titleParts) - 1]
+        title = title.replace("-", " ")
+        whatIsIt = "Game"
+        # images = get_image_sources(result, {"required": [{"where": "class", "equals": "thumbnail-2d-container"}], "typeToFind": "span", "imgIsChild": True, "childSettings": {"typeToFind": "img", "getType": "src"}})
+    elif "steamcommunity.com/" in website_url:
+        title = get_image_sources(result, {"required": [{"where": "class", "equals": "workshopItemTitle"}], "typeToFind": "div", "getType": "txt"})
+        images = get_image_sources(result, {"required": [{"where": "class", "equals": "guidePreviewImage"}], "typeToFind": "div", "getType": "img", "imgIsChild": True, "childSettings": {"typeToFind": "img", "getType": "src"}}),
+        whatIsIt = "Item"
+    elif "reddit.com/r/" in website_url and "comments/" in website_url:
+        title = website_url.split('/')[-2]
+        title = title.replace("_", " ")
+        images = get_image_sources(result)
+        if len(images) == 0:
+            pass
+        else:
+            images = images[0]
+        whatIsIt = "Article"
+    
+    elif website_url.lower().endswith(".png") or website_url.lower().endswith(".jpg") or website_url.lower().endswith(".jpeg") or website_url.lower().endswith(".gif"):
+        images = [website_url]
+        whatIsIt = "Image"
+        title = website_url.split("/")[-1]
+    elif ".itch.io/" in website_url:
+        title = website_url.split(".itch.io/")[1]
+    elif "codepen" in website_url:
+        images = "https://i.imgur.com/tCEFkcD.png"
+        if "/pen/" in website_url:
+            title = website_url.split("/pen/")[1] + " Codepen"
+            whatIsIt = "Code"
+        else:
+            title = website_url.split("/")[-1] + " on Codepen"
+            whatIsIt = "Profile"
+    else:
+        WEBCAMXPtest = get_image_sources(result, {"required": [{"where": "id", "equals": "webcamXP-body"}], "typeToFind": "body", "getType": "txt"})
+        if len(WEBCAMXPtest) > 0:
+            title = "WEBCAMXP 5"
+            images = "https://i.imgur.com/6jbP1TD.png"
         else:
             images = get_image_sources(result)
 
 
-        images = mergeSmolList(mergeSmolList(images))
-        title = mergeSmolList(title)
+    images = mergeSmolList(mergeSmolList(images))
+    title = mergeSmolList(title)
 
-        if type(images) == str and images.startswith("/"):
-            images = website_url + images 
+    if type(images) == str and images.startswith("/"):
+        images = website_url + images 
 
-        model["url"] = website_url
-        model["image"] = images
-        model["title"] = title
-        model["description"] = ""
-        model["bannerText"] = whatIsIt
-        outputList.append(model)
-        model = {
-            "url": "",
-            "image": "",
-            "title": "",
-            "description": "",
-            "bannerText": ""
-        }
-        continue
-    else:
-        print(f"Error downloading website: {website_url}")
-        model["url"] = website_url
-        outputList.append(model)
-        model = {
-            "url": "",
-            "image": "",
-            "title": "",
-            "description": "",
-            "bannerText": ""
-        }
+    model["url"] = website_url
+    model["image"] = images
+    model["title"] = title
+    model["description"] = ""
+    model["bannerText"] = whatIsIt
+    outputList.append(model)
+    model = {
+        "url": "",
+        "image": "",
+        "title": "",
+        "description": "",
+        "bannerText": ""
+    }
+    continue
 print("Done!")
 
     
