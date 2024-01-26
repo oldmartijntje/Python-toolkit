@@ -1,7 +1,8 @@
-# try:
+# pip install pytube
+# pip install requests
+# pip install bs4
 import json
 from pytube import YouTube
-from pytube import Channel
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -241,6 +242,9 @@ for line in lines:
         else:
             title = website_url.split("/")[-1] + " on Codepen"
             whatIsIt = "Profile"
+    elif "open.spotify.com" in website_url:
+        images = get_image_sources(result)
+        whatIsIt = "Spotify"
     else:
         WEBCAMXPtest = get_image_sources(result, {"required": [{"where": "id", "equals": "webcamXP-body"}], "typeToFind": "body", "getType": "txt"})
         if len(WEBCAMXPtest) > 0:
