@@ -206,7 +206,9 @@ else:
 logger.warning(f"The following tests are what would happen if you would run keepItAlive.py with this.")
 
 filename = originalFilename
-
+if filename == "":
+    filename = 'settings.json'
+    
 file_data = read_json_file(filename)
 if file_data:
     pass

@@ -4,7 +4,7 @@ some nice tools
 
 ## areYouDeadAlready.py + keepItAlive.py + nuke.py + testDeadSettings.py
 
-These are two scripts that go together.
+These are 4 scripts that go together.
 
 You can use this to secure private information. Everything stays safe, until you haven't confirmed that you are alive in X days. (highly customisable) If you haven't confirmed it for the set amount of days, it will delete the by you registered folders and files.
 
