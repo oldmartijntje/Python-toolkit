@@ -51,6 +51,9 @@ class GitAutoCommitApp:
         self.commit_entry = ttk.Entry(self.master)
         self.commit_entry.grid(row=2, column=1, columnspan=1, padx=10, pady=5)
 
+        self.time_label = ttk.Label(self.master, text="Last commit: XXXX-XX-XX XX:XX:XX")
+        self.time_label.grid(row=0, column=1, padx=10, pady=5)
+
         
 
     def start_auto_commit(self):
@@ -85,6 +88,7 @@ class GitAutoCommitApp:
                     subprocess.run(["git", "commit", "-m", msg], cwd=self.repository_path)
                     subprocess.run(["git", "push"], cwd=self.repository_path)
                     print("Committed changes.")
+                    self.time_label.config(text="Last commit: " + time.strftime("%Y-%m-%d %H:%M:%S"))
                 except Exception as e:
                     print("Error:", e)
                 time.sleep(self.commit_interval * 60)
