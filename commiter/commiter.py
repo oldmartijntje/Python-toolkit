@@ -54,6 +54,13 @@ class GitAutoCommitApp:
         self.time_label = ttk.Label(self.master, text="Last commit: XXXX-XX-XX XX:XX:XX")
         self.time_label.grid(row=0, column=1, padx=10, pady=5)
 
+        self.commit_button = ttk.Button(self.master, text="Commit Now", command=self.commit)
+        self.commit_button.grid(row=4, column=2, columnspan=1, padx=10, pady=5)
+
+        self.checkbox2_var = tk.BooleanVar()
+        self.checkbox2 = ttk.Checkbutton(self.master, text="Commit On Exit", variable=self.checkbox2_var)
+        self.checkbox2.grid(row=5, column=1, padx=10, pady=10)
+
         
 
     def start_auto_commit(self):
@@ -77,28 +84,38 @@ class GitAutoCommitApp:
             self.stop_button.config(state="disabled")
 
     def auto_commit(self):
+        loop = 0
         while self.running:
+            loop += 1   
             if self.checkbox_var.get():
-                try:
-                    self.repository_path = self.path_entry.get()
-                    msg = self.commit_entry.get()
-                    if (len(msg) == 0):
-                        msg = "No Commit Message"
-                    subprocess.run(["git", "add", "."], cwd=self.repository_path)
-                    subprocess.run(["git", "commit", "-m", msg], cwd=self.repository_path)
-                    subprocess.run(["git", "push"], cwd=self.repository_path)
-                    print("Committed changes.")
-                    self.time_label.config(text="Last commit: " + time.strftime("%Y-%m-%d %H:%M:%S"))
-                except Exception as e:
-                    print("Error:", e)
-                time.sleep(self.commit_interval * 60)
+                if loop >= self.commit_interval  * 60:
+                    self.commit()
+                    loop = 0
             else:
-                time.sleep(1)
                 print("nope")
+            time.sleep(1)
+
+    def commit(self):
+        try:
+            self.repository_path = self.path_entry.get()
+            msg = self.commit_entry.get()
+            if (len(msg) == 0):
+                msg = "No Commit Message"
+            subprocess.run(["git", "add", "."], cwd=self.repository_path)
+            subprocess.run(["git", "commit", "-m", msg], cwd=self.repository_path)
+            subprocess.run(["git", "push"], cwd=self.repository_path)
+            print("Committed changes.")
+            self.time_label.config(text="Last commit: " + time.strftime("%Y-%m-%d %H:%M:%S"))
+        except Exception as e:
+            print("Error:", e)
 
     def exit(self):
+        if self.checkbox2_var.get():
+            self.commit()
         self.running = False
         self.master.destroy()
+        time.sleep(5)
+        exit()
 
 def main():
     root = tk.Tk()
