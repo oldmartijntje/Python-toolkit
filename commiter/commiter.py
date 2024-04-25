@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-import git
 import time
 import threading
 import subprocess
