@@ -1,5 +1,6 @@
 import os
 import subprocess
+# pip install yt-dlp
 
 # Define the input file name
 input_file = "message.txt"
