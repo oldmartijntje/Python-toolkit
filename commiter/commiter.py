@@ -78,6 +78,14 @@ class GitAutoCommitApp:
 
     def restart(self):
         self.stop_auto_commit()
+        self.start_button.config(state="disabled")
+        slep = self.sleep_entry.get()
+        if (slep.isnumeric() == False):
+            self.sleep_entry.delete(0, tk.END)
+            self.sleep_entry.insert(0, str(self.commit_sleep))
+            slep = self.commit_sleep
+        slep = int(slep)
+        time.sleep(slep)
         self.start_auto_commit()
 
     def start_auto_commit(self):
