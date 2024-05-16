@@ -22,6 +22,10 @@ for file in os.listdir("input"):
             for key in data:
                 number += 1
                 # print(key)
-                finalText+= f"- [ ] [{number}.{key['title']}]({key['link']})\n\n"
+                # check for key['link']
+                if key.get('link') is None:
+                    finalText+= f"- [ ] {number}.{key['title']}\n\n"
+                else:
+                    finalText+= f"- [ ] [{number}.{key['title']}]({key['link']})\n\n"
             with open(f"output/{file.split('.')[0]}.md", "w", encoding="utf-8") as f:
                 f.write(finalText)
