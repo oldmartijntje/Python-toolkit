@@ -11,7 +11,7 @@ class GitAutoCommitApp:
         
         self.commit_interval = 10  # Default interval in minutes
         self.commit_sleep = 15
-        self.repository_path = "C:\Users\oldma\AppData\Roaming\.minecraft\saves"
+        self.repository_path = "C:\\Users\\oldma\\AppData\\Roaming\\.minecraft\\saves"
         self.running = False
         
         self.checkbox_var = tk.BooleanVar()
