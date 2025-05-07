@@ -86,7 +86,7 @@ else:
                 print(f"Error downloading video from: {video_url}")
                 print(f"Error message: {e.stderr}")
     with open(f"../{output_file}", "w") as file:
-        file.write("Downloaded videos:\n")
+        file.write("The Downloaded videos are:\n")
         for line in lines:
             file.write(line)
         file.write("\n")
