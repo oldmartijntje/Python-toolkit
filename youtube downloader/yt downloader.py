@@ -6,7 +6,7 @@ import subprocess
 input_file = "message.txt"
 output_file = "receipt.txt"
 formatIndex = 0
-formats = ["11", "18"]
+formats = ["11", "18", "616", "609", "614", "605"]
 
 # Ask the user to choose between MP3 and MP4
 choice = input("Enter 'mp3' or 'mp4' to choose the download format: ")
