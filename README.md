@@ -62,3 +62,26 @@ You can either:
 This is because it has multiple modes.
 
 Receipt.txt shows the links it downloaded.
+
+### duolingo
+
+Duolingo.py is an app that reminds you to do your lesson.
+
+at the following times it will give you a tkinter pop-up:
+- 13:00
+- 17:00
+- 20:00
+- 21:00
+- 22:00
+- 23:00
+- 23:30
+- 23:45
+- 23:50
+- 23:55
+
+And it will ask you: "Did you do your Duolingo lesson today?"
+
+- **Yes**
+    When you click yes, It will stop showing the pop-up until the next day.
+- **No**
+    It will show you the popup again at the next time. And it will open "https://www.duolingo.com/" in your browser.
